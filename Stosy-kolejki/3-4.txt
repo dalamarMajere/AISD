@@ -1,0 +1,14 @@
+Zadanie 3.
+
+E A S * Y * Q U E * * * S T * * * I O * N * * *
+
+stos: S Y E U Q T S A O N I E
+kolejka: E A S Y Q U E S T I O N
+
+Zadanie 4.
+
+E A * S * Y * *
+
+stos: A S Y E
+
+

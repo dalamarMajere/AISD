@@ -1,7 +1,46 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
+
+struct Node {
+	int value;
+	Node* Next;
+};
+
+Node* stos;
+
+//polozenie elementu na wierzcholku stosu
+void push(Node*& a, int x) {
+	Node* currentNode = a;
+
+	while (currentNode->Next != NULL) {
+		currentNode = currentNode->Next;
+	}
+
+	Node* newElem = new Node;
+	newElem->value = x;
+	newElem->Next = NULL;
+
+	currentNode->Next = newElem;
+}
+
+//pobranie ostatnio odlozonego elementu i zwrocenie go jako wartosci funkcji
+int pop(Node*& a) {
+	Node* currentNode = a;
+	Node* result = a;
+
+	while (currentNode->Next != NULL) {
+		result = currentNode->Next;
+		if (result->Next == NULL) {
+			currentNode->Next = NULL;
+		}
+		else currentNode = result;
+	}
+
+	int ret = result->value;
+	delete result;
+	return ret;
+}
 
 struct Element {
 	int value;
@@ -161,16 +200,20 @@ void List::Destroy() {
 void List::PrintReverse() {
     Element* tmp = Head;
 
-    vector<int> stos(0);
+	Node* stos = new Node;
+	stos->Next = NULL;
+	stos->value = NULL;
+
+	int i = 1;
     while (tmp != NULL) {
-        stos.push_back(tmp->value);
+        push(stos, tmp->value);
         tmp = tmp->Next;
+		i++;
     }
 
-    int sz = stos.size();
-    for (int i = sz - 1; i >= 0; i--)
-        cout << stos[i] << " ";
-    cout << "\n";
+	for (int j = 1; j <= i; j++) {
+		cout << pop(stos) << " ";
+	}
 }
 
 Element* List::Search(int x) {
@@ -229,6 +272,7 @@ int main() {
 	//output: 30 2 10 3 4
 
 	lista.PrintReverse();
+	cout << "\n";
 	//output: 4 3 10 2 30
 	lista.PrintReverseRecursion(lista.GetHead());
 	//output: 4 3 10 2 30
@@ -255,6 +299,6 @@ int main() {
 
 	lista.Destroy();
 	lista.Print();
-	//output: 
+	//output:
 	return 0;
 }

@@ -53,7 +53,6 @@ void InsertTree(int x, Node* &leaf) {
     else {
         Insert(leaf, x);
     }
-    Size++;
 }
 
 
